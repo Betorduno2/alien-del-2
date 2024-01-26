@@ -32,15 +32,12 @@ const config = {
     GUI
   ],
   physics: {
-    default: 'matter',
-    matter: {
-      gravity: {
-        y: 1
-      },
-      debug: true,
-      debugBodyColor: 0xffffff
+    default: 'arcade',
+    arcade: {
+        gravity: { y: 300 },
+        debug: true
     }
-  }
+  },
 };
 
 window.addEventListener('load', () => {
