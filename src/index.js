@@ -17,6 +17,7 @@ const config = {
   context: customCanvas.context,
   width: DEFAULT_WIDTH,
   height: DEFAULT_HEIGHT,
+  pixelArt:true,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
