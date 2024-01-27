@@ -39,6 +39,7 @@ export default class Boot extends Phaser.Scene {
       this.load.audio('fart_00','fart_00.mp3');
       this.load.audio('fart_01','fart_01.mp3');
       this.load.audio('fart_sss','fart_sss.mp3');
+      this.load.audio('soundtrack','litz_hungarian_rapsody.mp3');
 
       let logo = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2, 'logo')
       .setAlpha(0);

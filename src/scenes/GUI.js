@@ -7,6 +7,7 @@ export default class GUI extends Phaser.Scene {
       this.keyInterval = 18;
       this.holdShitBar;
       this.spaceKey;
+      this.shitIcon;
     }
 
     create() {
@@ -86,13 +87,30 @@ export default class GUI extends Phaser.Scene {
         let healthBar=this.makeBar(32,25,0x592a15);
         this.setBarValue(healthBar,100);
         //this.add.image(32, 50, 'shit_icon').setScale(3);
-        this.add.sprite(40, 50, 'shit_icon_sp', 0).setScale(0.7);
+        this.shitIcon = this.add.sprite(40, 50, 'shit_icon_sp', 0).setScale(0.7);
+        this.shitIcon.name = 'shit_icon_sp';
+        this.initializeAnimation();
         const PlayScene = this.scene.get('Play');
         PlayScene.events.on('damage', () => {
             this.holdShit -= 20;
         });
 
         return healthBar;
+    }
+
+    initializeAnimation() {
+        this.anims.create({
+            target: this.shitIcon,
+            key: 'idle-' + this.shitIcon.name,
+            frames: this.anims.generateFrameNames(this.shitIcon.name, {
+                start: 0,
+                end: 12
+            }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.shitIcon.play('idle-' + this.shitIcon.name);
     }
 
     handlePause() {
