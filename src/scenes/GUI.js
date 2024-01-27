@@ -1,13 +1,27 @@
 export default class GUI extends Phaser.Scene {
     constructor() {
       super('GUI');
+      this.holdShit = 100; // Initial value
+      this.decreaseRate = 1; // Amount to decrease per second
+      this.holdShitBar;
     }
 
     create() {
         this.initializeSoundButton();
         this.initializeFullscreenButton();
         this.initializePauseButton();
-    }
+        this.holdShitBar = this.initializeLifeBar();
+        // Set up keyboard input
+        this.input.keyboard.on('keydown', function (event) {
+            // Check if the 'SPACE' key is pressed
+            if (event.key === ' ') {
+                // Increase the value when the 'SPACE' key is pressed
+                if(this.holdShit<100)
+                this.holdShit++;
+                this.setBarValue(this.holdShitBar,this.holdShit);
+                }
+            }, this);
+        }
 
     initializeSoundButton() {
         this.soundButton = this.add.image(
@@ -68,7 +82,34 @@ export default class GUI extends Phaser.Scene {
         });
     }
 
-    update() {
+    initializeLifeBar() {
+        let healthBar=this.makeBar(16,25,0x592a15);
+        this.setBarValue(healthBar,100);
+        return healthBar;
+    }
+    makeBar(x, y,color) {
+        //draw the bar
+        let bar = this.add.graphics();
+
+        //color the bar
+        bar.fillStyle(color, 1);
+
+        //fill the bar with a rectangle
+        bar.fillRect(0, 0, 200, 50);
+        
+        //position the bar
+        bar.x = x;
+        bar.y = y;
+
+        //return the bar
+        return bar;
+    }
+    setBarValue(bar,percentage) {
+        //scale the bar
+        bar.scaleX = percentage/100;
+    }
+
+    update(time, delta) {
         if (this.fullscreenButton) {
             if (this.scale.isFullscreen) {
               this.fullscreenButton.setFrame(1);
@@ -83,6 +124,15 @@ export default class GUI extends Phaser.Scene {
             } else {
                 this.soundButton.setFrame(1);
             }
+        }
+
+        // Update the value based on the elapsed time
+        this.holdShit -= this.decreaseRate * (delta / 1000); // Convert delta to seconds
+        this.setBarValue(this.holdShitBar,this.holdShit);
+        // Check if the value has reached a minimum threshold
+        if (this.holdShit < 0) {
+            this.holdShit = 0;
+            console.log("shit happens");
         }
     }
 }
