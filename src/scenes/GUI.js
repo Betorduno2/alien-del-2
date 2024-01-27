@@ -85,8 +85,8 @@ export default class GUI extends Phaser.Scene {
     initializeLifeBar() {
         let healthBar=this.makeBar(32,25,0x592a15);
         this.setBarValue(healthBar,100);
-        this.add.image(32, 50, 'shit_icon').setScale(3);
-
+        //this.add.image(32, 50, 'shit_icon').setScale(3);
+        this.add.sprite(40, 50, 'shit_icon_sp', 0).setScale(0.7);
         const PlayScene = this.scene.get('Play');
         PlayScene.events.on('damage', () => {
             this.holdShit -= 20;
