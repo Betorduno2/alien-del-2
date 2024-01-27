@@ -1,3 +1,4 @@
+import Background from "../components/Background";
 import Enemies from "../components/Enemies";
 import PlayerContainer from "../components/Player";
 import SymbolContainer from "../components/Symbol";
@@ -12,6 +13,7 @@ export default class Boot extends Phaser.Scene {
       this.game.config.height);
       const GUIScene = this.scene.get('GUI');
       this.symbolContainer = new SymbolContainer(this,GUIScene);
+      this.background = new Background(this);
       this.eventsMobile();
     }
     
@@ -20,6 +22,7 @@ export default class Boot extends Phaser.Scene {
       this.playerContainer.checkPlayerByObject(this.enemies);
       this.playerContainer.update();
       this.symbolContainer.update();
+      this.background.update();
     }
 
     eventsMobile() {
