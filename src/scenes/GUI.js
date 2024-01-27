@@ -4,7 +4,7 @@ export default class GUI extends Phaser.Scene {
       this.holdShit = 100; // Initial value
       this.decreaseRate = 2; // Amount to decrease per second
       this.lastKeyPressTime = 0;
-      this.keyInterval = 200;
+      this.keyInterval = 20;
       this.holdShitBar;
       this.spaceKey;
     }
@@ -131,8 +131,8 @@ export default class GUI extends Phaser.Scene {
                     }
 
                     this.setBarValue(this.holdShitBar,this.holdShit);
-                    this.lastKeyPressTime = time;
             }
+            this.lastKeyPressTime = time;
         }
         // Check if the value has reached a minimum threshold
         if (this.holdShit < 0) {
