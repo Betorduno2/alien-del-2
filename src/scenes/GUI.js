@@ -2,7 +2,7 @@ export default class GUI extends Phaser.Scene {
     constructor() {
       super('GUI');
       this.holdShit = 100; // Initial value
-      this.decreaseRate = 5; // Amount to decrease per second
+      this.decreaseRate = 2; // Amount to decrease per second
       this.lastKeyPressTime = 0;
       this.keyInterval = 200;
       this.holdShitBar;
