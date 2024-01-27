@@ -2,8 +2,11 @@ export default class GUI extends Phaser.Scene {
     constructor() {
       super('GUI');
       this.holdShit = 100; // Initial value
-      this.decreaseRate = 1; // Amount to decrease per second
+      this.decreaseRate = 5; // Amount to decrease per second
+      this.lastKeyPressTime = 0;
+      this.keyInterval = 200;
       this.holdShitBar;
+      this.spaceKey;
     }
 
     create() {
@@ -11,17 +14,8 @@ export default class GUI extends Phaser.Scene {
         this.initializeFullscreenButton();
         this.initializePauseButton();
         this.holdShitBar = this.initializeLifeBar();
-        // Set up keyboard input
-        this.input.keyboard.on('keydown', function (event) {
-            // Check if the 'SPACE' key is pressed
-            if (event.key === ' ') {
-                // Increase the value when the 'SPACE' key is pressed
-                if(this.holdShit<100)
-                this.holdShit++;
-                this.setBarValue(this.holdShitBar,this.holdShit);
-                }
-            }, this);
-        }
+        this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    }
 
     initializeSoundButton() {
         this.soundButton = this.add.image(
@@ -129,6 +123,17 @@ export default class GUI extends Phaser.Scene {
         // Update the value based on the elapsed time
         this.holdShit -= this.decreaseRate * (delta / 1000); // Convert delta to seconds
         this.setBarValue(this.holdShitBar,this.holdShit);
+        if (this.spaceKey.isDown) {
+            // Check if enough time has passed since the last key press
+            if (time - this.lastKeyPressTime > this.keyInterval) {
+                    if(this.holdShit<100){
+                        this.holdShit++;
+                    }
+
+                    this.setBarValue(this.holdShitBar,this.holdShit);
+                    this.lastKeyPressTime = time;
+            }
+        }
         // Check if the value has reached a minimum threshold
         if (this.holdShit < 0) {
             this.holdShit = 0;
