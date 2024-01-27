@@ -8,6 +8,10 @@ export default class Boot extends Phaser.Scene {
     }
 
     create() {
+      // Create the soundtrack
+      this.backgroundMusic = this.sound.add('soundtrack', { loop: true, volume: 0.4 });
+      // Play the soundtrack
+      this.backgroundMusic.play();
       this.enemies = new Enemies(this);
       this.playerContainer = new PlayerContainer(this, this.game.config.width / 2,
       this.game.config.height);
