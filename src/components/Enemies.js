@@ -34,14 +34,30 @@ export default class Enemies extends Phaser.GameObjects.Group {
     }
 
     moveX(child) {
+        const duration = Phaser.Math.Between(this.delay, this.delay + 2000);
+        const buffer = 50; // Puedes ajustar el valor del búfer según sea necesario
+    
+        const newX = Phaser.Math.Between(buffer, this.gameWidth - buffer);
+        const newY = Phaser.Math.Between(0, this.gameHeight / 2);
+    
         this.scene.tweens.add({
             targets: child,
-            x: this.gameWidth - 64,
-            duration: 2000,
+            x: Math.max(buffer, Math.min(newX, this.gameWidth - buffer)),
+            duration: duration,
             ease: 'Linear',
-            yoyo: true,
-            repeat: -1
+            onComplete: () => {
+                this.moveX(child);
+            }
         });
+    }
+
+    enemyChasePlayer(enemy) {
+        const speed = Phaser.Math.Between(100, 200);
+        const angle = Phaser.Math.Angle.Between(enemy.x, enemy.y, this.player.x, this.player.y);
+        const velocityX = Math.cos(angle) * speed;
+        const velocityY = Math.sin(angle) * speed;
+
+        enemy.setVelocity(velocityX, velocityY);
     }
 
     setTimer() {

@@ -15,6 +15,12 @@ export default class GUI extends Phaser.Scene {
         this.initializePauseButton();
         this.holdShitBar = this.initializeLifeBar();
         this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        // Manejar eventos de pausa y reanudación cuando se pierde el foco
+        this.events.on('resume', this.handleResume, this);
+        this.events.on('pause', this.handlePause, this);
+ 
+        // También puedes usar el evento visibilitychange del documento para manejar cambios de foco en la ventana del navegador
+        document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
     }
 
     initializeSoundButton() {
@@ -87,6 +93,28 @@ export default class GUI extends Phaser.Scene {
 
         return healthBar;
     }
+
+    handlePause() {
+        // El juego se pausa cuando pierde el foco
+        this.scene.pause();
+    }
+
+    handleResume() {
+        // El juego se reanuda cuando obtiene el foco nuevamente
+        this.scene.resume();
+    }
+
+    handleVisibilityChange() {
+        // Manejar cambios en la visibilidad de la ventana del navegador
+        if (document.hidden) {
+            // La ventana está fuera de foco, pausar el juego
+            this.handlePause();
+        } else {
+            // La ventana está en foco, reanudar el juego
+            this.handleResume();
+        }
+    }
+    
     makeBar(x, y,color) {
         //draw the bar
         let bar = this.add.graphics();
