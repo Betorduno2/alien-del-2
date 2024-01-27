@@ -79,6 +79,12 @@ export default class GUI extends Phaser.Scene {
     initializeLifeBar() {
         let healthBar=this.makeBar(16,25,0x592a15);
         this.setBarValue(healthBar,100);
+
+        const PlayScene = this.scene.get('Play');
+        PlayScene.events.on('damage', () => {
+            this.holdShit -= 20;
+        });
+
         return healthBar;
     }
     makeBar(x, y,color) {
@@ -121,17 +127,19 @@ export default class GUI extends Phaser.Scene {
         }
 
         // Update the value based on the elapsed time
-        this.holdShit -= this.decreaseRate * (delta / 1000); // Convert delta to seconds
-        this.setBarValue(this.holdShitBar,this.holdShit);
-        if (this.spaceKey.isDown) {
-            // Check if enough time has passed since the last key press
-            if (time - this.lastKeyPressTime > this.keyInterval) {
-                    if(this.holdShit<100){
-                        this.holdShit++;
-                    }
-
-                    this.setBarValue(this.holdShitBar,this.holdShit);
-                    this.lastKeyPressTime = time;
+        if (!this.scene.isPaused('Play')) {
+            this.holdShit -= this.decreaseRate * (delta / 1000); // Convert delta to seconds
+            this.setBarValue(this.holdShitBar,this.holdShit);
+            if (this.spaceKey.isDown) {
+                // Check if enough time has passed since the last key press
+                if (time - this.lastKeyPressTime > this.keyInterval) {
+                        if(this.holdShit<100){
+                            this.holdShit++;
+                        }
+    
+                        this.setBarValue(this.holdShitBar,this.holdShit);
+                        this.lastKeyPressTime = time;
+                }
             }
         }
         // Check if the value has reached a minimum threshold

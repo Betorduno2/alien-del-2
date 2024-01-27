@@ -2,7 +2,7 @@
 export default class Enemies extends Phaser.GameObjects.Group {
     limitY;
     timer;
-    delay = 4000;
+    delay = 2000;
     constructor(scene) {
         super(scene, []);
         this.scene = scene;
@@ -16,26 +16,27 @@ export default class Enemies extends Phaser.GameObjects.Group {
     }
 
     createBullet() {
-        const numRandom = Phaser.Math.Between(1, 4);
-        const x = numRandom * 128;
+        const x = this.getRndX();
         const enemy = this.scene.physics.add.sprite(x, 0, 'chicharo', 0);
         this.scene.physics.world.enable(enemy);
         this.add(enemy);
+
+        enemy.body.setSize(100, 100);
         
         enemy.name = 'chicharo';
         this.moveX(enemy, x);
         this.initializeAnimation(enemy);
     }
 
-    moveX(child, x) {
-        let finalX = x + 128;
-        if (x + 128 > this.gameWidth) {
-            finalX = x - 128;
-        }
+    getRndX() {
+        const numRandom = Phaser.Math.Between(1, 4);
+        return numRandom * 128;
+    }
 
+    moveX(child) {
         this.scene.tweens.add({
             targets: child,
-            x: finalX,
+            x: this.gameWidth - 64,
             duration: 2000,
             ease: 'Linear',
             yoyo: true,
@@ -45,7 +46,9 @@ export default class Enemies extends Phaser.GameObjects.Group {
 
     setTimer() {
         setInterval(() => {
-            this.createBullet();
+            if (!this.scene.scene.isPaused('Play')) {
+                this.createBullet();
+            }
         }, this.delay);
     }
 
@@ -65,7 +68,7 @@ export default class Enemies extends Phaser.GameObjects.Group {
                 start: 0,
                 end: 15
             }),
-            frameRate: 10,
+            frameRate: 15,
             repeat: -1
         });
 

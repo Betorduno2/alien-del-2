@@ -6,6 +6,9 @@ const frases = [
 ];
 
 export default class PlayerContainer extends Phaser.GameObjects.Container {
+    isDownLeftMobile = false;
+    isDownRightMobile = false;
+    isUpMobile = false;
     constructor(scene, x, y) {
         super(scene, x, y);
         this.scene = scene;
@@ -18,9 +21,9 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.body.setCollideWorldBounds(true);
-        this.body.setAllowGravity(false);
-        const newWidth = this.player.width;
-        const newHeight = this.player.height;
+        // this.body.setAllowGravity(false);
+        const newWidth = 100;
+        const newHeight = 100;
 
         this.body.setSize(newWidth, newHeight);
         this.body.setOffset(-newWidth / 2, -newHeight);
@@ -28,9 +31,11 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
     initializePlayer() {
         // Agrega el jugador al contenedor
-        this.player = this.scene.physics.add.sprite(0, 0, 'player').setOrigin(.5,1);
+        this.player = this.scene.physics.add.sprite(0, 0, 'player')
+        .setOrigin(.5,1);
         this.player.setCollideWorldBounds(true);
-        this.player.body.setAllowGravity(false);
+        this.player.body.setSize(100, 100);
+        // this.player.body.setAllowGravity(false);
         this.add(this.player);
     }
 
@@ -98,22 +103,38 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     }
 
     gasScape() {
-        this.body.setVelocityY(-100);
+        this.body.setVelocityY(-10);
     }
 
     stop() {
-        this.body.setVelocityY(0);
         this.body.setVelocityX(0);
     }
 
     checkPlayerByObject(object) {
-        this.scene.physics.world.overlap(this.player, object, (enemy) => {
-          this.scene.events.emit('damage');
+        this.scene.physics.world.overlap(this.player, object, (player, enemy) => {
+            enemy.destroy();
+            this.scene.events.emit('damage');
         });
     }
 
+    setIsDownMobile(direction = 'left') {
+        if (direction === 'left') {
+            this.isDownLeftMobile = true;
+        } else if (direction === 'right') {
+            this.isDownRightMobile = true;
+        } else if (direction === 'stop') {
+            this.isUpMobile = true;
+        }
+        
+    }
 
     update() {
+        if (!this.isUpMobile) {
+            if (this.isDownLeftMobile) {
+                console.log('<<<<<<<<<< left >>>>>>>><');
+            }
+        }
+
         if (this.cursors.right.isDown) {
             this.moveRight(); // Mueve el jugador hacia la izquierda
         } else if (this.cursors.up.isDown) { // test pedo
