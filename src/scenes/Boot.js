@@ -5,7 +5,7 @@ export default class Boot extends Phaser.Scene {
 
     preload() {
       this.load.path = 'assets/';
-
+      this.load.image('background', 'backgroundBlocks.png');
       this.load.spritesheet('fullscreen', 'fullscreen.png', { 
         frameWidth: 64, 
         frameHeight: 64 
@@ -31,6 +31,7 @@ export default class Boot extends Phaser.Scene {
       this.load.image('door3', 'doors/door3.png');
 
       this.load.spritesheet('player_sp', 'player/spritesheetProta.png', {frameWidth:130, frameHeight:130});
+
 
       this.load.image('xs-logo', 'xslogo.png');
       this.load.image('enemy', 'enemies/enemy.png');
