@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="custom.project.id" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
+    <name>Template car terrain</name>
+    <description>
+       Car terrain curved
+    </description>
+    <author email="jesusBarraza@author.be" href="http://www.gsuscode.com">
+        Jesús Barraza
+    </author>
+    <content src="./index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <preference name="Fullscreen" value="true" />
+    <preference name="orientation" value="landscape" />
+    <icon src="icon-app.png" />
+    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="SplashIcon.png" />
+</widget>
