@@ -27,7 +27,7 @@ export default class Boot extends Phaser.Scene {
       });
 
       this.load.spritesheet('player_sp', 'player/spritesheetProta.png', {frameWidth:130, frameHeight:130});
-
+      this.load.spritesheet('shit_icon_sp', 'spriteShitIcon.png', {frameWidth:130, frameHeight:130});
 
       this.load.image('xs-logo', 'xslogo.png');
       this.load.image('enemy', 'enemies/enemy.png');
