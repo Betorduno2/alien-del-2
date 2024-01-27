@@ -38,6 +38,8 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         // this.player.body.setAllowGravity(false);
         this.player.name = 'player_sp';
         this.initializeAnimation();
+        this.fartSound = this.scene.sound.add('fart_00');
+        this.fartSSound = this.scene.sound.add('fart_sss');
         this.add(this.player);
     }
 
@@ -86,7 +88,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
     initializeTimerDialog() {
         this.scene.time.addEvent({ 
-            delay: 3000, 
+            delay: 5000, 
             callback:() => {
                 this.setRndTextDialog();
                 this.bubble.setAlpha(1);
@@ -109,6 +111,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         const rndId = Phaser.Math.Between(0, frases.length - 1);
         const frase = frases[rndId];
         this.textbox.setText(frase);
+        this.fartSSound.play();
     }
 
     moveLeft() {
@@ -131,6 +134,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         this.scene.physics.world.overlap(this.player, object, (player, enemy) => {
             enemy.destroy();
             this.scene.events.emit('damage');
+            this.fartSound.play();
         });
     }
 
