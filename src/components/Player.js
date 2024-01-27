@@ -31,12 +31,29 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
     initializePlayer() {
         // Agrega el jugador al contenedor
-        this.player = this.scene.physics.add.sprite(0, 0, 'player')
+        this.player = this.scene.physics.add.sprite(0, 0, 'player_sp', 0)
         .setOrigin(.5,1);
         this.player.setCollideWorldBounds(true);
         this.player.body.setSize(100, 100);
         // this.player.body.setAllowGravity(false);
+        this.player.name = 'player_sp';
+        this.initializeAnimation();
         this.add(this.player);
+    }
+
+    initializeAnimation() {
+        this.scene.anims.create({
+            target: this.player,
+            key: 'idle-' + this.player.name,
+            frames: this.scene.anims.generateFrameNames(this.player.name, {
+                start: 0,
+                end: 20
+            }),
+            frameRate: 15,
+            repeat: -1
+        });
+
+        this.player.play('idle-' + this.player.name);
     }
 
     initializeBubble() {
