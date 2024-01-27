@@ -6,10 +6,10 @@ export default class Boot extends Phaser.Scene {
     }
 
     create() {
-      this.enemies = new Enemies(this);
       this.playerContainer = new PlayerContainer(this, this.game.config.width / 2,
       this.game.config.height);
-
+      
+      this.enemies = new Enemies(this);
       this.eventsMobile();
     }
     

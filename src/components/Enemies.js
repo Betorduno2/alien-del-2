@@ -3,6 +3,7 @@ export default class Enemies extends Phaser.GameObjects.Group {
     limitY;
     timer;
     delay = 2000;
+    enemiesByLevel = 8;
     constructor(scene) {
         super(scene, []);
         this.scene = scene;
@@ -45,9 +46,15 @@ export default class Enemies extends Phaser.GameObjects.Group {
     }
 
     setTimer() {
-        setInterval(() => {
-            if (!this.scene.scene.isPaused('Play')) {
-                this.createBullet();
+        this.timer = setInterval(() => {
+            this.enemiesByLevel -=1;
+            if (this.enemiesByLevel > 0) {
+                if (!this.scene.scene.isPaused('Play')) {
+                    this.createBullet();
+                }
+            } else {
+                clearInterval(this.timer);
+                this.scene.events.emit('change-door-step');
             }
         }, this.delay);
     }
