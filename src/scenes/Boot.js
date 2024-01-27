@@ -26,10 +26,13 @@ export default class Boot extends Phaser.Scene {
         frameHeight: 128 
       });
 
+      this.load.spritesheet('player_sp', 'player/spritesheetProta.png', {frameWidth:130, frameHeight:130});
+
       this.load.image('xs-logo', 'xslogo.png');
       this.load.image('enemy', 'enemies/enemy.png');
       this.load.image('bigBoss', 'enemies/bigboss.png');
       this.load.image('player', 'player/player.png');
+      this.load.image('symbol', 'symbol.png');
 
       let logo = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2, 'logo')
       .setAlpha(0);
