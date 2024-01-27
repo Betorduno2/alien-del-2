@@ -4,6 +4,7 @@ import Enemies from "../components/Enemies";
 import PlayerContainer from "../components/Player";
 import SymbolContainer from "../components/Symbol";
 export default class Boot extends Phaser.Scene {
+    isDoorStep = false;
     constructor() {
       super('Play');
     }
@@ -19,7 +20,10 @@ export default class Boot extends Phaser.Scene {
       this.eventsMobile();
 
       this.events.on('change-door-step', () => {
-        this.doors = new Doors(this);
+        if (!this.isDoorStep) {
+          this.doors = new Doors(this);
+          this.isDoorStep = true;
+        }
       });
     }
     
@@ -28,7 +32,9 @@ export default class Boot extends Phaser.Scene {
       this.playerContainer.checkPlayerByObject(this.enemies);
       this.playerContainer.update();
       this.symbolContainer.update();
-      this.background.update();
+      if (!this.isDoorStep) {
+        this.background.update();
+      }
     }
 
     eventsMobile() {
