@@ -146,12 +146,6 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     }
 
     update() {
-        if (!this.isUpMobile) {
-            if (this.isDownLeftMobile) {
-                console.log('<<<<<<<<<< left >>>>>>>><');
-            }
-        }
-
         if (this.cursors.right.isDown) {
             this.moveRight(); // Mueve el jugador hacia la izquierda
         } else if (this.cursors.up.isDown) { // test pedo

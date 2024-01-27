@@ -11,8 +11,7 @@ export default class Doors extends Phaser.GameObjects.Group {
         this.initializeDoors();
         this.randomPositions();
     }
-
-
+ 
     randomPositions() {
         let usedPos = [];
         for (let index = 0; index < 3; index++) {
@@ -32,12 +31,9 @@ export default class Doors extends Phaser.GameObjects.Group {
                 targets: door,
                 x: randomPosition,
                 duration: 800,  // Duración de la animación en milisegundos
-                ease: 'Cubic.easeInOut',
                 yoyo: true,
-                repeat: 3,
-                onComplete: () => {
-                    console.log('Animación completada');
-                }
+                repeat: 1,
+                ease: 'Cubic.easeInOut'
             });
         }
     }
@@ -46,8 +42,14 @@ export default class Doors extends Phaser.GameObjects.Group {
         const totalSpacing = this.gameWidth / 3;
         for (let index = 0; index < 3; index++) {
             const x = index * totalSpacing;
-            const door = this.scene.physics.add.sprite(x + 100, 128, 'door' + (index + 1)).setOrigin(0.5, 0);
+            const door = this.scene.physics.add.sprite(x + 100, 128, 'door' + (index + 1)).setOrigin(0.5, 0).setInteractive();
             this.positions.push(x + 100);
+            door.index = index;
+            
+            door.on('pointerdown', () => {
+                console.log('holaaaa');
+            });
+
             door.body.setAllowGravity(false);
             this.add(door);
         }
