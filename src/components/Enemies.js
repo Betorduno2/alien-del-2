@@ -3,7 +3,7 @@ export default class Enemies extends Phaser.GameObjects.Group {
     limitY;
     timer;
     delay = 2000;
-    enemiesByLevel = 8;
+    enemiesByLevel = 10;
     constructor(scene) {
         super(scene, []);
         this.scene = scene;
@@ -54,7 +54,6 @@ export default class Enemies extends Phaser.GameObjects.Group {
                 }
             } else {
                 clearInterval(this.timer);
-                this.scene.events.emit('change-door-step');
             }
         }, this.delay);
     }
@@ -88,5 +87,9 @@ export default class Enemies extends Phaser.GameObjects.Group {
                 enemy.destroy();
             }
         });
+
+        if (this.getChildren().length === 0) {
+            this.scene.events.emit('change-door-step');
+        }
     }
 }

@@ -1,3 +1,4 @@
+import Doors from "../components/Doors";
 import Enemies from "../components/Enemies";
 import PlayerContainer from "../components/Player";
 import SymbolContainer from "../components/Symbol";
@@ -14,6 +15,10 @@ export default class Boot extends Phaser.Scene {
       const GUIScene = this.scene.get('GUI');
       this.symbolContainer = new SymbolContainer(this,GUIScene);
       this.eventsMobile();
+
+      this.events.on('change-door-step', () => {
+        this.doors = new Doors(this);
+      });
     }
     
     update() {

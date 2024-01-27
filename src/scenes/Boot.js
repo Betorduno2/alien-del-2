@@ -26,6 +26,10 @@ export default class Boot extends Phaser.Scene {
         frameHeight: 128 
       });
 
+      this.load.image('door1', 'doors/door1.png');
+      this.load.image('door2', 'doors/door2.png');
+      this.load.image('door3', 'doors/door3.png');
+
       this.load.spritesheet('player_sp', 'player/spritesheetProta.png', {frameWidth:130, frameHeight:130});
 
       this.load.image('xs-logo', 'xslogo.png');
