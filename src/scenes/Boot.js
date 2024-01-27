@@ -22,6 +22,14 @@ export default class Boot extends Phaser.Scene {
       });
 
       this.load.image('xs-logo', 'xslogo.png');
+<<<<<<< HEAD
+      this.load.image('xs-logo', 'xslogo.png');
+
+      this.load.image('enemy', 'enemies/enemy.png');
+      this.load.image('bigBoss', 'enemies/bigBoss.png');
+=======
+      this.load.image('player', 'player/player.png');
+>>>>>>> 8bcd49b0b64269c14f654d8fa905bcbca1af0656
 
       let logo = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2, 'logo')
       .setAlpha(0);
