@@ -7,9 +7,6 @@ export default class SymbolContainer extends Phaser.GameObjects.Container {
         this.gameHeight = this.scene.game.config.height;
         // Agrega el contenedor al escenario
         this.scene.add.existing(this);
-        //this.scene.physics.world.enable(this);
-        //this.physicsBodyType = Phaser.Physics.Arcade;
-        //this.scene.physics.world.enable(this, 0);
         this.fx;
         this.initializeSymbol();
        
