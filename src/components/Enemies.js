@@ -2,26 +2,51 @@
 export default class Enemies extends Phaser.GameObjects.Group {
     limitY;
     timer;
-    delay = 1000;
+    delay = 4000;
     constructor(scene) {
-        super(scene, [], {
-            quantity: 3
-        });
+        super(scene, []);
         this.scene = scene;
+        this.gameWidth = this.scene.game.config.width;
+        this.gameHeight = this.scene.game.config.height;
         this.scene.add.existing(this);
-        this.scene.physics.world.enable(this);
-        this.timer = this.scene.time.addEvent({ delay: this.delay, callback: this.createBullet, callbackScope: this.scene, loop: true });
+        this.physicsBodyType = Phaser.Physics.Arcade;
+        this.scene.physics.world.enable(this, 0);
+        this.createBullet();
+        this.setTimer();
     }
 
-    createBullets() {
-        for (let index = 0; index < this.quantity; index++) {
-            this.create(this.randomPositionX(), - 128, 'enemy')
-            .setScale(1.5).setDepth(3);
-      
-            /*this.initializeAnimations(bullet);
+    createBullet() {
+        const numRandom = Phaser.Math.Between(1, 4);
+        const x = numRandom * 128;
+        const enemy = this.scene.physics.add.sprite(x, 0, 'chicharo', 0);
+        this.scene.physics.world.enable(enemy);
+        this.add(enemy);
+        
+        enemy.name = 'chicharo';
+        this.moveX(enemy, x);
+        this.initializeAnimation(enemy);
+    }
 
-            this.onCompleteAnimation(bullet);*/
+    moveX(child, x) {
+        let finalX = x + 128;
+        if (x + 128 > this.gameWidth) {
+            finalX = x - 128;
         }
+
+        this.scene.tweens.add({
+            targets: child,
+            x: finalX,
+            duration: 2000,
+            ease: 'Linear',
+            yoyo: true,
+            repeat: -1
+        });
+    }
+
+    setTimer() {
+        setInterval(() => {
+            this.createBullet();
+        }, this.delay);
     }
 
     onCompleteAnimation(child) {
@@ -32,44 +57,26 @@ export default class Enemies extends Phaser.GameObjects.Group {
         });       
     }
 
-    initializeAnimations(child) {
+    initializeAnimation(child) {
         this.scene.anims.create({
             target: child,
-            key: 'bullet-enemy-fire',
-            frames: this.scene.anims.generateFrameNames('bullet-enemy', {
+            key: 'idle-' + child.name,
+            frames: this.scene.anims.generateFrameNames(child.name, {
                 start: 0,
-                end: 12
+                end: 15
             }),
             frameRate: 10,
             repeat: -1
         });
-    
-        this.scene.anims.create({
-            target: child,
-            key: 'bullet-enemy-explotion',
-            frames: this.scene.anims.generateFrameNames('bullet-enemy', {
-                start: 13,
-                end: 42
-            }),
-            frameRate: 10
-        });
 
-        child.play('bullet-enemy-fire');
-    }
-
-    randomPositionX (){
-        const lastX = this?.scene.game.config.width / 128;
-        return Phaser.Math.Between(1, lastX) * 128;
+        child.play('idle-' + child.name);
     }
 
     update() {
         this.getChildren().forEach(enemy => {
-            /* if (bullet.anims.currentAnim.key === 'bullet-enemy-fire') {
-                bullet.setVelocityY(0);
-                bullet.body.setAllowGravity(false);
-            } */
+            if (this.gameHeight && enemy.y >= this.gameHeight) {
+                enemy.destroy();
+            }
         });
     }
-
-    
 }
