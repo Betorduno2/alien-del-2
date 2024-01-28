@@ -19,8 +19,7 @@ export default class Boot extends Phaser.Scene {
       this.game.config.height);
       
       this.enemies = new Enemies(this);
-      const GUIScene = this.scene.get('GUI');
-      this.symbolContainer = new SymbolContainer(this,GUIScene);
+      this.randomSymbol();
       this.background = new Background(this);
       this.eventsMobile();
 
@@ -42,6 +41,10 @@ export default class Boot extends Phaser.Scene {
       if (!this.isDoorStep) {
         this.background.update();
       }
+    }
+    randomSymbol() {
+      const GUIScene = this.scene.get('GUI');
+      this.symbolContainer = new SymbolContainer(this,GUIScene);
     }
 
     eventsMobile() {
