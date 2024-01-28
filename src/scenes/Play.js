@@ -26,7 +26,7 @@ export default class Boot extends Phaser.Scene {
 
       this.events.on('change-door-step', () => {
         if (!this.isDoorStep) {
-          this.doors = new Doors(this, this.symbolContainer.currentTexture);
+          this.doors = new Doors(this, this.symbolContainer.currentTexture, this.PlayerContainer);
           this.playerContainer.animationPause();
           this.isDoorStep = true;
         }

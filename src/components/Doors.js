@@ -1,10 +1,11 @@
 export default class Doors extends Phaser.GameObjects.Group {
     positions = [];
     activeSelection = false;
-    constructor(scene, symbolSelected) {
+    constructor(scene, symbolSelected, playerContanier) {
         super(scene, []);
         this.scene = scene;
         this.symbolSelected = symbolSelected;
+        this.playerContanier = playerContanier;
         this.gameWidth = this.scene.game.config.width;
         this.gameHeight = this.scene.game.config.height;
         this.scene.add.existing(this);
@@ -53,21 +54,41 @@ export default class Doors extends Phaser.GameObjects.Group {
             const symbol = this.scene.add.sprite(25, 0, 'symbol' + (index + 1))
             .setScale(1.5);
             container.answer = this.symbolSelected === 'symbol' + (index + 1);
-
+            container.add(door);
+            container.add(symbol);
             container.setInteractive();
             
             container.on('pointerdown', () => {
+                console.log(this.activeSelection);
                 if (this.activeSelection) {
                     if (container.answer) {
                         console.log('correct');
+                        this.playerContanier.animationResume();
                     } else {
                         console.log('incorrect');
+                        this.playerContanier.animationResume();
                     }
                 }
             });
-            container.add(door);
-            container.add(symbol);
             this.add(container);
         }
+    }
+
+    moveToDoor(gameObject, targetObject, speed, onCompleteCallback) {
+        // Calculate the distance between the current position and the target position
+        var distance = Phaser.Math.Distance.Between(gameObject.x, gameObject.y, targetObject.x, targetObject.y);
+    
+        // Calculate the duration of the tween based on the distance and speed
+        var duration = distance / speed * 1000; // speed is in pixels per second
+    
+        // Create a tween to move the game object to the target
+        this.tweens.add({
+            targets: gameObject,
+            x: targetObject.x,
+            y: targetObject.y,
+            duration: duration,
+            ease: 'Linear',
+            onComplete: onCompleteCallback
+        });
     }
 }
