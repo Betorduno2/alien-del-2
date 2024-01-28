@@ -56,9 +56,9 @@ export default class Doors extends Phaser.GameObjects.Group {
             container.answer = this.symbolSelected === 'symbol' + (index + 1);
             container.add(door);
             container.add(symbol);
-            container.setInteractive(new Phaser.Geom.Rectangle(0,0,256,256), Phaser.Geom.Rectangle.Contains);
-            
-            container.on('pointerdown', () => {
+            door.setInteractive({useHandCursor: true});
+            //new Phaser.Geom.Rectangle(0,0,256,256), Phaser.Geom.Rectangle.Contains
+            door.on('pointerdown', () => {
                 if (this.activeSelection) {
                     if (container.answer) {
                         this.playerContanier.animationResume();
