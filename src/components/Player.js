@@ -22,7 +22,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         this.scene.physics.world.enable(this);
         this.body.setCollideWorldBounds(true);
         // this.body.setAllowGravity(false);
-        const newWidth = 100;
+        const newWidth = 50;
         const newHeight = 100;
 
         this.body.setSize(newWidth, newHeight);
@@ -35,7 +35,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         .setOrigin(.5,1);
         this.player.setScale(1.5);
         this.player.setCollideWorldBounds(true);
-        this.player.body.setSize(80, 80);
+        this.player.body.setSize(50, 80);
         // this.player.body.setAllowGravity(false);
         this.player.name = 'player_sp';
         this.initializeAnimation();

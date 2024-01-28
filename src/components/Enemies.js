@@ -2,8 +2,8 @@
 export default class Enemies extends Phaser.GameObjects.Group {
     limitY;
     timer;
-    delay = 2000;
-    enemiesByLevel = 10;
+    delay = 800;
+    enemiesByLevel = 50;
     constructor(scene) {
         super(scene, []);
         this.scene = scene;
@@ -33,7 +33,7 @@ export default class Enemies extends Phaser.GameObjects.Group {
         let enemy = this.scene.physics.add.sprite(x, 0, texture, 0);
         enemy.name = texture;
         enemy.setScale(1.5);
-        enemy.body.setSize(80, 80);
+        enemy.body.setSize(50, 80);
         this.add(enemy);
         this.scene.physics.world.enable(enemy);
 

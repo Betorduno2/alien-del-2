@@ -86,7 +86,7 @@ export default class GUI extends Phaser.Scene {
         this.initializeAnimation();
         const PlayScene = this.scene.get('Play');
         PlayScene.events.on('damage', () => {
-            this.holdShit -= 20;
+            this.holdShit -= 60;
         });
 
         return healthBar;
