@@ -1,16 +1,21 @@
 export default class GUI extends Phaser.Scene {
     constructor() {
       super('GUI');
-      this.holdShit = 100; // Initial value
-      this.decreaseRate = 2; // Amount to decrease per second
-      this.lastKeyPressTime = 0;
-      this.keyInterval = 18;
-      this.holdShitBar;
-      this.spaceKey;
-      this.shitIcon;
     }
 
     create() {
+        this.initializeGUI();
+    }
+
+    initializeGUI() {
+        this.holdShit = 100; // Initial value
+        this.decreaseRate = 2; // Amount to decrease per second
+        this.lastKeyPressTime = 0;
+        this.keyInterval = 18;
+        this.holdShitBar;
+        this.spaceKey;
+        this.shitIcon;
+
         this.initializeSoundButton();
         this.initializeFullscreenButton();
         this.initializePauseButton();
@@ -165,7 +170,8 @@ export default class GUI extends Phaser.Scene {
         }
         // Check if the value has reached a minimum threshold
         if (this.holdShit < 0) {
-            this.holdShit = 100;
+            /*this.scene.remove('Play');
+            this.scene.remove('GUI');*/
             this.scene.start('FailState');
         }
     }
