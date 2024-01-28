@@ -53,7 +53,7 @@ export default class Doors extends Phaser.GameObjects.Group {
             this.positions.push(x + 100);
             const symbol = this.scene.add.sprite(25, 0, 'symbol' + (index + 1))
             .setScale(1.5);
-            container.answer = this.symbolSelected === 'symbol' + (index + 1);
+            container.answer = this.symbolSelected === 'symbol' + (index + 1) + 'B';
             container.add(door);
             container.add(symbol);
             door.setInteractive({useHandCursor: true});
