@@ -22,13 +22,13 @@ export default class Boot extends Phaser.Scene {
       });
 
       this.load.spritesheet('chicharo', 'enemies/chicharo.png', { 
-        frameWidth: 128, 
-        frameHeight: 128 
+        frameWidth: 130, 
+        frameHeight: 130 
       });
 
       this.load.spritesheet('tarro', 'enemies/tarro.png', { 
-        frameWidth: 128, 
-        frameHeight: 128 
+        frameWidth: 130, 
+        frameHeight: 130 
       });
 
       this.load.spritesheet('player-win', 'player/baileVictoria.png', { 
@@ -64,26 +64,23 @@ export default class Boot extends Phaser.Scene {
       this.load.image('symbol2', 'symbols/symbol2.png');
       this.load.image('symbol3', 'symbols/symbol3.png');
 
-      let logo = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2, 'logo')
-      .setAlpha(0);
+      this.cameras.main.setBackgroundColor('#A05043');
 
       const progressBar = this.add.graphics();
       progressBar.x = (this.game.config.width / 2) - 300;
       progressBar.y = (this.game.config.height / 2) - 20;
       
       this.load.on('progress', (value) => {
-          logo.setAlpha(value);
           progressBar.clear();
           if (value >= 0.9) {
-              progressBar.fillStyle(0xE3D028, 1);
+              progressBar.fillStyle(0x592a15, 1);
           } else {
-              progressBar.fillStyle(0xE3D028, 1);
+              progressBar.fillStyle(0x592a15, 1);
           }
           progressBar.fillRect(150, 150, 300 * value, 25);
       });
 
       this.load.on('complete', () => {
-        logo.destroy();
         this.scene.start('GUI');
         this.scene.start('Play');
       });
