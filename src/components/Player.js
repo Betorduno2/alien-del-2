@@ -56,22 +56,44 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
             repeat: -1
         });
 
+        this.scene.anims.create({
+            target: this.player,
+            key: 'win-' + this.player.name,
+            frames: this.scene.anims.generateFrameNames('player-win', {
+                start: 0,
+                end: 51
+            }),
+            frameRate: 15,
+            repeat: -1
+        });
+
+        this.scene.anims.create({
+            target: this.player,
+            key: 'fail-' + this.player.name,
+            frames: this.scene.anims.generateFrameNames('player-fail', {
+                start: 0,
+                end: 19
+            }),
+            frameRate: 15,
+            repeat: -1
+        });
+
         this.player.play('idle-' + this.player.name);
     }
 
     initializeBubble() {
-        this.initTextDialog();
         this.bubble = this.scene.add.graphics();
-        this.bubble.fillStyle(0x333333, 0.6); // Color gris, opacidad 0.7
-        this.bubble.fillRoundedRect(this.textbox.x - 10, this.textbox.y - 10, 200, 50, 10); // Rectángulo redondeado
+        this.bubble.fillStyle(0xffffff, 1); // Color gris, opacidad 0.7
+        this.bubble.fillRoundedRect(40, -130, 180, 50, 10); // Rectángulo redondeado
         this.bubble.setAlpha(0);
         this.add(this.bubble);
+        this.initTextDialog();
     }
 
     initTextDialog() {
         this.textbox = this.scene.add.text(0, 0, '', {
-            fontSize: '30px',
-            fill: '#fff',
+            font: 'bold 26px Arial',
+            fill: '#000',
             align: 'center',
             wordWrap: { width: 200, useAdvancedWrap: true } // Ajusta el ancho según el fondo de burbuja
         });
@@ -88,7 +110,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     }
 
     initializeTimerDialog() {
-        this.scene.time.addEvent({ 
+        this.timerDialog = this.scene.time.addEvent({ 
             delay: 12000, 
             callback:() => {
                 this.setRndTextDialog();
@@ -113,6 +135,17 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         const rndId = Phaser.Math.Between(0, frases.length - 1);
         const frase = frases[rndId];
         this.textbox.setText(frase);
+    }
+
+    setTextCustomDialog(text) {
+        this.textbox.setText(text);
+        this.scene.tweens.add({
+            targets: [this.bubble, this.textbox],
+            alpha: 1,
+            duration: 1000,
+            ease: 'Linear',
+            yoyo: true
+        });
     }
 
     moveLeft() {
@@ -148,15 +181,23 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         } else if (direction === 'stop') {
             this.isUpMobile = true;
         }
-        
     }
 
     animationPause() {
         this.player.stop();
+        this.timerDialog.remove();
     }
 
     animationResume() {
         this.player.play();
+    }
+
+    animationWin() {
+        this.player.play('win-' + this.player.name);
+    }
+
+    animationFail() {
+        this.player.play('fail-' + this.player.name);
     }
 
     update() {

@@ -63,16 +63,20 @@ export default class Enemies extends Phaser.GameObjects.Group {
     }
 
     setTimer() {
-        this.timer = setInterval(() => {
-            this.enemiesByLevel -=1;
-            if (this.enemiesByLevel > 0) {
-                if (!this.scene.scene.isPaused('Play')) {
-                    this.createBullet();
+        this.timer = this.scene.time.addEvent({ 
+            delay: this.delay, 
+            callback:() => {
+                this.enemiesByLevel -=1;
+                if (this.enemiesByLevel > 0) {
+                    if (!this.scene.scene.isPaused('Play')) {
+                        this.createBullet();
+                    }
+                } else {
+                    this.timer.remove();
                 }
-            } else {
-                clearInterval(this.timer);
-            }
-        }, this.delay);
+            },
+            loop: true
+        });
     }
 
     onCompleteAnimation(child) {

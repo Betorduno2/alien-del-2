@@ -193,7 +193,7 @@ export default class GUI extends Phaser.Scene {
         // Check if the value has reached a minimum threshold
         if (this.holdShit < 0) {
             this.holdShit = 0;
-            console.log("shit happens");
+            this.scene.start('FailState');
         }
     }
 }

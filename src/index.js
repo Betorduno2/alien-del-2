@@ -5,6 +5,8 @@ import Boot from './scenes/Boot.js';
 import Play from './scenes/Play.js';
 import GUI from './scenes/GUI.js';
 import CustomCanvas from './customCanvas.js';
+import WinState from './scenes/WinState.js';
+import FailState from './scenes/FailState.js';
 
 const DEFAULT_HEIGHT = 800;
 const DEFAULT_WIDTH = 600;
@@ -30,7 +32,9 @@ const config = {
     Preload,
     Boot,
     Play,
-    GUI
+    GUI,
+    WinState,
+    FailState
   ],
   physics: {
     default: 'arcade',

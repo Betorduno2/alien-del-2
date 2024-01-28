@@ -1,4 +1,6 @@
 export default class SymbolContainer extends Phaser.GameObjects.Container {
+    symbolsTextures = ['symbol1', 'symbol2', 'symbol3'];
+    currentTexture = 'symbol1';
     constructor(scene, GUIScene) {
         super(scene);
         this.scene = scene;
@@ -14,8 +16,9 @@ export default class SymbolContainer extends Phaser.GameObjects.Container {
 
     initializeSymbol() {
         // Agrega el simbolo al contenedor
-        this.symbol = this.scene.physics.add.sprite(0, 0, 'symbol')
-        .setOrigin(0.5,1);
+        this.currentTexture = this.randomTexture();
+        this.symbol = this.scene.physics.add.sprite(0, 0, this.currentTexture)
+        .setOrigin(0.5,1).setScale(2);
         //this.symbol.setCollideWorldBounds(true);
         this.symbol.body.setSize(25, 25);
         this.symbol.x = 100;
@@ -23,6 +26,13 @@ export default class SymbolContainer extends Phaser.GameObjects.Container {
         this.add(this.symbol);
 
     }
+
+    randomTexture() {
+        const indexRandom = Phaser.Math.Between(0, this.symbolsTextures.length - 1);
+        const selectedTexture = this.symbolsTextures[indexRandom];
+        return selectedTexture;
+    }
+
     update() {
         const GUIScene = this.GUIScene;
         this.fx.amount =  100 - GUIScene.holdShit;

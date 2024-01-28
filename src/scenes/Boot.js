@@ -26,6 +26,21 @@ export default class Boot extends Phaser.Scene {
         frameHeight: 128 
       });
 
+      this.load.spritesheet('tarro', 'enemies/tarro.png', { 
+        frameWidth: 128, 
+        frameHeight: 128 
+      });
+
+      this.load.spritesheet('player-win', 'player/baileVictoria.png', { 
+        frameWidth: 130, 
+        frameHeight: 130 
+      });
+
+      this.load.spritesheet('player-fail', 'player/leaducenculito.png', { 
+        frameWidth: 130, 
+        frameHeight: 130 
+      });
+
       this.load.image('door1', 'doors/door1.png');
       this.load.image('door2', 'doors/door2.png');
       this.load.image('door3', 'doors/door3.png');
@@ -44,6 +59,10 @@ export default class Boot extends Phaser.Scene {
       this.load.audio('fart_01','fart_01.mp3');
       this.load.audio('fart_sss','fart_sss.mp3');
       this.load.audio('soundtrack','litz_hungarian_rapsody.mp3');
+
+      this.load.image('symbol1', 'symbols/symbol1.png');
+      this.load.image('symbol2', 'symbols/symbol2.png');
+      this.load.image('symbol3', 'symbols/symbol3.png');
 
       let logo = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2, 'logo')
       .setAlpha(0);

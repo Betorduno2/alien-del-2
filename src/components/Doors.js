@@ -1,8 +1,10 @@
 export default class Doors extends Phaser.GameObjects.Group {
     positions = [];
-    constructor(scene) {
+    activeSelection = false;
+    constructor(scene, symbolSelected) {
         super(scene, []);
         this.scene = scene;
+        this.symbolSelected = symbolSelected;
         this.gameWidth = this.scene.game.config.width;
         this.gameHeight = this.scene.game.config.height;
         this.scene.add.existing(this);
@@ -33,7 +35,10 @@ export default class Doors extends Phaser.GameObjects.Group {
                 duration: 800,  // Duración de la animación en milisegundos
                 yoyo: true,
                 repeat: 1,
-                ease: 'Cubic.easeInOut'
+                ease: 'Cubic.easeInOut',
+                onComplete: () => {
+                    this.activeSelection = true;
+                }
             });
         }
     }
@@ -42,16 +47,27 @@ export default class Doors extends Phaser.GameObjects.Group {
         const totalSpacing = this.gameWidth / 3;
         for (let index = 0; index < 3; index++) {
             const x = index * totalSpacing;
-            const door = this.scene.physics.add.sprite(x + 100, 128, 'door' + (index + 1)).setOrigin(0.5, 0).setInteractive();
+            const container = this.scene.add.container(x + 100, 256);
+            const door = this.scene.add.sprite(0, 0, 'door' + (index + 1));
             this.positions.push(x + 100);
-            door.index = index;
-            
-            door.on('pointerdown', () => {
-                console.log('holaaaa');
-            });
+            const symbol = this.scene.add.sprite(25, 0, 'symbol' + (index + 1))
+            .setScale(1.5);
+            container.answer = this.symbolSelected === 'symbol' + (index + 1);
 
-            door.body.setAllowGravity(false);
-            this.add(door);
+            container.setInteractive();
+            
+            container.on('pointerdown', () => {
+                if (this.activeSelection) {
+                    if (container.answer) {
+                        console.log('correct');
+                    } else {
+                        console.log('incorrect');
+                    }
+                }
+            });
+            container.add(door);
+            container.add(symbol);
+            this.add(container);
         }
     }
 }
