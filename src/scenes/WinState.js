@@ -1,4 +1,5 @@
 import Background from "../components/Background";
+import PlayerContainer from "../components/Player";
 
 export default class WinState extends Phaser.Scene {
   constructor() {
