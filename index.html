@@ -12,9 +12,27 @@
             padding: 0;
             background-color: #A05043;
         }
+        @font-face {
+            font-family: "Alien";
+            src: url("https://db.onlinewebfonts.com/t/f70bf039e601f71963d0c835e38e8d45.eot");
+            src: url("https://db.onlinewebfonts.com/t/f70bf039e601f71963d0c835e38e8d45.eot?#iefix")format("embedded-opentype"),
+            url("https://db.onlinewebfonts.com/t/f70bf039e601f71963d0c835e38e8d45.woff2")format("woff2"),
+            url("https://db.onlinewebfonts.com/t/f70bf039e601f71963d0c835e38e8d45.woff")format("woff"),
+            url("https://db.onlinewebfonts.com/t/f70bf039e601f71963d0c835e38e8d45.ttf")format("truetype"),
+            url("https://db.onlinewebfonts.com/t/f70bf039e601f71963d0c835e38e8d45.svg#Alien World")format("svg");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .fontload {
+            visibility:hidden;
+            position: absolute;
+            left: -9999px;
+        }
     </style>
 </head>
 <body>
+    <div class="fontload" style="font-family: 'Alien';">.</div>
     <canvas id="myCustomCanvas"></canvas>
 </body>
 </html>

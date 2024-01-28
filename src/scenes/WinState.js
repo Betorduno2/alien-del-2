@@ -15,7 +15,7 @@ export default class WinState extends Phaser.Scene {
       (this.game.config.height / 2) - 200,
       'Siiii!!',
       {
-        fontFamily: 'Arial',
+        fontFamily: 'Alien',
         strokeThickness: 5,
         stroke: '#ffffff',
         fontSize: 80,
@@ -29,7 +29,7 @@ export default class WinState extends Phaser.Scene {
       (this.game.config.height / 2) - 80,
       'try again',
       {
-        fontFamily: 'Arial',
+        fontFamily: 'Alien',
         strokeThickness: 5,
         stroke: '#ffffff',
         fontSize: 40,

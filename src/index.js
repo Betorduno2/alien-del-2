@@ -7,6 +7,7 @@ import GUI from './scenes/GUI.js';
 import CustomCanvas from './customCanvas.js';
 import WinState from './scenes/WinState.js';
 import FailState from './scenes/FailState.js';
+import Menu from './scenes/Menu.js';
 
 const DEFAULT_HEIGHT = 800;
 const DEFAULT_WIDTH = 600;
@@ -32,6 +33,7 @@ const config = {
   scene: [
     Preload,
     Boot,
+    Menu,
     Play,
     GUI,
     WinState,
@@ -41,7 +43,7 @@ const config = {
     default: 'arcade',
     arcade: {
         gravity: { y: 80 },
-        debug: true
+        debug: false
     }
   },
 };

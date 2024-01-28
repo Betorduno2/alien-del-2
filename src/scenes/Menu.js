@@ -1,44 +1,41 @@
 import Background from "../components/Background";
 import PlayerContainer from "../components/Player";
 
-export default class FailState extends Phaser.Scene {
+export default class Menu extends Phaser.Scene {
     constructor() {
-      super('FailState');
+      super('Menu');
     }
   
     create() {
       this.background = new Background(this);
       const mainScene = this.scene.get('Play');
-      mainScene.backgroundMusic.stop();
       this.add.text(
         this.game.config.width / 2,
         ( this.game.config.height / 2) - 200, 
-        'Ohhh no!!',
+        'SHIT ETERNAL',
         {
             fontFamily: 'Alien',
-            strokeThickness: 5,
-            stroke: '#ffffff',
-            fontSize: 80,
-            color: '#000000'
+            strokeThickness: 10,
+            stroke: '#000000',
+            fontSize: 65,
+            color: '#FFC90E'
         }
       ).setOrigin(0.5);
 
       const tryAgain = this.add.text(
         this.game.config.width / 2,
        ( this.game.config.height / 2) - 80, 
-        'try again',
+        'Start',
         {
             fontFamily: 'Alien',
-            strokeThickness: 5,
-            stroke: '#ffffff',
-            fontSize: 40,
-            color: '#000000'
+            strokeThickness: 10,
+            stroke: '#000000',
+            fontSize: 55,
+            color: '#FFC90E'
         }
       ).setOrigin(0.5).setInteractive();
 
       tryAgain.on('pointerdown', () => {
-        mainScene.randomSymbol();
-        mainScene.backgroundMusic.play();
         this.scene.start('Play');
         this.scene.start('GUI');
       });
@@ -47,7 +44,7 @@ export default class FailState extends Phaser.Scene {
       this.game.config.height);
       
       this.playerContainer.animationPause();
-      this.playerContainer.player.setScale(2);
+      this.playerContainer.player.setScale(4);
 
       this.tweens.add({
         targets: this.playerContainer.player,
@@ -62,3 +59,4 @@ export default class FailState extends Phaser.Scene {
       this.playerContainer.animationFail();
     }
 }
+
