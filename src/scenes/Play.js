@@ -4,13 +4,18 @@ import Enemies from "../components/Enemies";
 import PlayerContainer from "../components/Player";
 import SymbolContainer from "../components/Symbol";
 
-export default class Boot extends Phaser.Scene {
+export default class Play extends Phaser.Scene {
     isDoorStep = false;
     constructor() {
       super('Play');
     }
 
     create() {
+      this.initializeGame();
+    }
+
+    initializeGame() {
+      this.isDoorStep = false;
       // Create the soundtrack
       this.backgroundMusic = this.sound.add('soundtrack', { loop: true, volume: 0.3 });
       // Play the soundtrack
@@ -30,7 +35,6 @@ export default class Boot extends Phaser.Scene {
           this.isDoorStep = true;
         }
       });
-
     }
     
     update() {

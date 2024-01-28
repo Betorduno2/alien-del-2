@@ -35,9 +35,7 @@ export default class Enemies extends Phaser.GameObjects.Group {
         enemy.setScale(1.5);
         enemy.body.setSize(50, 80);
         this.add(enemy);
-        this.scene.physics.world.enable(enemy);
-
-        
+        this.scene.physics.world.enable(enemy);       
         
         this.moveX(enemy, x);
         this.initializeAnimation(enemy);

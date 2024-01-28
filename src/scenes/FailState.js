@@ -1,6 +1,7 @@
 import Background from "../components/Background";
 import PlayerContainer from "../components/Player";
-
+import Play from './Play.js';
+import GUI from './GUI.js';
 export default class FailState extends Phaser.Scene {
     constructor() {
       super('FailState');
@@ -8,8 +9,6 @@ export default class FailState extends Phaser.Scene {
   
     create() {
       this.background = new Background(this);
-      const mainScene = this.scene.get('Play');
-      mainScene.backgroundMusic.stop();
       this.add.text(
         this.game.config.width / 2,
         ( this.game.config.height / 2) - 200, 
@@ -35,12 +34,18 @@ export default class FailState extends Phaser.Scene {
             color: '#000000'
         }
       ).setOrigin(0.5).setInteractive();
-
+      
+      
       tryAgain.on('pointerdown', () => {
-        mainScene.randomSymbol();
-        mainScene.backgroundMusic.play();
-        this.scene.start('Play');
-        this.scene.start('GUI');
+        const Play = this.scene.get('Play');
+        const GUI = this.scene.get('GUI');
+
+        if (Play && GUI) {
+          Play.initializeGame();
+          GUI.initializeGUI();
+          this.scene.start('Play');
+          this.scene.start('GUI');
+        }
       });
 
       this.playerContainer = new PlayerContainer(this, this.game.config.width / 2,
@@ -54,7 +59,6 @@ export default class FailState extends Phaser.Scene {
         tint: 0x592a15, // Set the target tint (white, indicating no tint)
         duration: 20000, // Duration of the transition in milliseconds
         onComplete: () => {
-            // Callback function after the transition is complete
             this.playerContainer.player.clearTint(); // Clear the tint to ensure no residual tint is left
         }
       });
