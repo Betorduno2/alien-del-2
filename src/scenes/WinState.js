@@ -45,8 +45,10 @@ export default class WinState extends Phaser.Scene {
     });
 
     this.playerContainer = new PlayerContainer(this, this.game.config.width / 2,
-      this.game.config.height);
+    this.game.config.height);
 
+    this.playerContainer.animationPause();
     this.playerContainer.player.setScale(2);
+    this.playerContainer.animationWin();
   }
 }
