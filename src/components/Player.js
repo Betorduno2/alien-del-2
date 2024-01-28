@@ -2,7 +2,9 @@ const frases = [
     'Ay mi c*lo',
     'Ay me cago',
     'Quiten!!',
-    'un baño!'
+    'un baño!',
+    'Uy gonorrea!',
+    'jueputa'
 ];
 
 export default class PlayerContainer extends Phaser.GameObjects.Container {
@@ -84,7 +86,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     initializeBubble() {
         this.bubble = this.scene.add.graphics();
         this.bubble.fillStyle(0xffffff, 1); // Color gris, opacidad 0.7
-        this.bubble.fillRoundedRect(40, -130, 180, 50, 10); // Rectángulo redondeado
+        this.bubble.fillRoundedRect(40, -130, 210, 50, 10); // Rectángulo redondeado
         this.bubble.setAlpha(0);
         this.add(this.bubble);
         this.initTextDialog();
@@ -99,7 +101,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         });
 
         // Ajusta la posición del texto para centrarlo en la burbuja
-        this.textbox.setPosition((this.textbox.width / 4) + 50,( -this.textbox.height * 4));
+        this.textbox.setPosition((this.textbox.width / 4) + 80,( -this.textbox.height * 4));
         
         this.textbox.setAlpha(0);
         // Alinea el cuadro de texto en el centro de la burbuja

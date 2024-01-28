@@ -1,17 +1,26 @@
 import Background from "../components/Background";
 import PlayerContainer from "../components/Player";
 
+const frases = [
+  'Siuuuuuu!',
+  'A seguir\ncagandola',
+  'Cagamos!!',
+  'A seguir cagandola..\nen tu vida'
+];
+
 export default class WinState extends Phaser.Scene {
   constructor() {
     super('WinState');
   }
 
   create() {
+    const rndId = Phaser.Math.Between(0, frases.length - 1);
+    const frase = frases[rndId];
     this.background = new Background(this);
     this.add.text(
       this.game.config.width / 2,
       (this.game.config.height / 2) - 200,
-      'Siiii!!',
+      frase,
       {
         fontFamily: 'Alien',
         strokeThickness: 5,

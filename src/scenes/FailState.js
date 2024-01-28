@@ -1,7 +1,16 @@
 import Background from "../components/Background";
 import PlayerContainer from "../components/Player";
-import Play from './Play.js';
-import GUI from './GUI.js';
+
+const frases = [
+  'El pantalon\nnuevo',
+  'Pipipi pipipi',
+  'que cagada',
+  'Nooo dignidad',
+  'Y ahora que?',
+  'No! pero esto\nno puede ser',
+  'Oficialmente\ntoy cagado',
+];
+
 export default class FailState extends Phaser.Scene {
     constructor() {
       super('FailState');
@@ -9,15 +18,17 @@ export default class FailState extends Phaser.Scene {
   
     create() {
       this.background = new Background(this);
+      const rndId = Phaser.Math.Between(0, frases.length - 1);
+      const frase = frases[rndId];
       this.add.text(
         this.game.config.width / 2,
         ( this.game.config.height / 2) - 200, 
-        'Ohhh no!!',
+        frase,
         {
             fontFamily: 'Alien',
             strokeThickness: 5,
             stroke: '#ffffff',
-            fontSize: 80,
+            fontSize: 60,
             color: '#000000'
         }
       ).setOrigin(0.5);
