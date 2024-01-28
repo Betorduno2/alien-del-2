@@ -64,6 +64,12 @@ export default class Boot extends Phaser.Scene {
       this.load.image('symbol2', 'symbols/symbol2.png');
       this.load.image('symbol3', 'symbols/symbol3.png');
 
+      this.load.image('symbol1B', 'symbols/symbol1Black.png');
+      this.load.image('symbol2B', 'symbols/symbol2Black.png');
+      this.load.image('symbol3B', 'symbols/symbol3Black.png');
+
+      this.load.image('sign', 'symbols/toilet-sign.png');
+
       this.cameras.main.setBackgroundColor('#A05043');
 
       const progressBar = this.add.graphics();
