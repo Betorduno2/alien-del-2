@@ -18,14 +18,28 @@ export default class Enemies extends Phaser.GameObjects.Group {
 
     createBullet() {
         const x = this.getRndX();
-        const enemy = this.scene.physics.add.sprite(x, 0, 'chicharo', 0);
+        const numberEnemy = Phaser.Math.Between(0, 1)
+        let enemy = '';
+        console.log(numberEnemy);
+        switch (numberEnemy ) {
+            case 1:
+                enemy = this.scene.physics.add.sprite(x, 0, 'tarro', 0);
+                enemy.name = 'tarro';
+                break;
+        
+            default:
+                enemy = this.scene.physics.add.sprite(x, 0, 'chicharo', 0);
+                enemy.name = 'chicharo';
+                break;
+        }
+        
         enemy.setScale(1.5);
         this.scene.physics.world.enable(enemy);
         this.add(enemy);
 
         enemy.body.setSize(80, 80);
         
-        enemy.name = 'chicharo';
+        
         this.moveX(enemy, x);
         this.initializeAnimation(enemy);
     }
