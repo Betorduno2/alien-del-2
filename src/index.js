@@ -20,6 +20,7 @@ const config = {
   width: DEFAULT_WIDTH,
   height: DEFAULT_HEIGHT,
   pixelArt:true,
+  BackgroundColor: '#A05043',
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
