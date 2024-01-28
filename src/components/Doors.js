@@ -56,22 +56,32 @@ export default class Doors extends Phaser.GameObjects.Group {
             container.answer = this.symbolSelected === 'symbol' + (index + 1);
             container.add(door);
             container.add(symbol);
-            container.setInteractive();
+            container.setInteractive(new Phaser.Geom.Rectangle(0,0,256,256), Phaser.Geom.Rectangle.Contains);
             
             container.on('pointerdown', () => {
-                console.log(this.activeSelection);
                 if (this.activeSelection) {
                     if (container.answer) {
-                        console.log('correct');
                         this.playerContanier.animationResume();
+                        this.moveToDoor(this.playerContanier, container, 500, this.handleCorrectAnswer.bind(this));
                     } else {
-                        console.log('incorrect');
                         this.playerContanier.animationResume();
+                        this.moveToDoor(this.playerContanier, container, 500, this.handleWrongAnswer.bind(this));
                     }
                 }
             });
             this.add(container);
         }
+    }
+    handleCorrectAnswer() {
+        console.log('correct');
+        console.log(this.scene);
+        this.scene.scene.start('WinState');
+    }
+
+    handleWrongAnswer() {
+        console.log('incorrect');
+        console.log(this.scene);
+        this.scene.scene.start('FailState');
     }
 
     moveToDoor(gameObject, targetObject, speed, onCompleteCallback) {
@@ -82,7 +92,7 @@ export default class Doors extends Phaser.GameObjects.Group {
         var duration = distance / speed * 1000; // speed is in pixels per second
     
         // Create a tween to move the game object to the target
-        this.tweens.add({
+        this.scene.tweens.add({
             targets: gameObject,
             x: targetObject.x,
             y: targetObject.y,

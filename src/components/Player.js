@@ -189,7 +189,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     }
 
     animationResume() {
-        this.player.play();
+        this.player.play('idle-' + this.player.name);
     }
 
     animationWin() {
