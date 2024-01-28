@@ -15,6 +15,10 @@ export default class Play extends Phaser.Scene {
     }
 
     initializeGame() {
+      this.playerContainer = null;
+      this.backgroundMusic = null;
+      this.enemies = null;
+      this.background = null;
       this.isDoorStep = false;
       // Create the soundtrack
       this.backgroundMusic = this.sound.add('soundtrack', { loop: true, volume: 0.3 });
