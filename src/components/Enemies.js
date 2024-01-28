@@ -19,25 +19,24 @@ export default class Enemies extends Phaser.GameObjects.Group {
     createBullet() {
         const x = this.getRndX();
         const numberEnemy = Phaser.Math.Between(0, 1)
-        let enemy = '';
-        console.log(numberEnemy);
-        switch (numberEnemy ) {
-            case 1:
-                enemy = this.scene.physics.add.sprite(x, 0, 'tarro', 0);
-                enemy.name = 'tarro';
+        let texture;
+        switch (numberEnemy) {
+            case 0:
+                texture = 'tarro';
                 break;
         
             default:
-                enemy = this.scene.physics.add.sprite(x, 0, 'chicharo', 0);
-                enemy.name = 'chicharo';
+                texture = 'chicharo';
                 break;
         }
-        
-        enemy.setScale(1.5);
-        this.scene.physics.world.enable(enemy);
-        this.add(enemy);
 
+        let enemy = this.scene.physics.add.sprite(x, 0, texture, 0);
+        enemy.name = texture;
+        enemy.setScale(1.5);
         enemy.body.setSize(80, 80);
+        this.add(enemy);
+        this.scene.physics.world.enable(enemy);
+
         
         
         this.moveX(enemy, x);
@@ -107,9 +106,9 @@ export default class Enemies extends Phaser.GameObjects.Group {
             key: 'idle-' + child.name,
             frames: this.scene.anims.generateFrameNames(child.name, {
                 start: 0,
-                end: 15
+                end: 17
             }),
-            frameRate: 15,
+            frameRate: 17,
             repeat: -1
         });
 

@@ -22,13 +22,13 @@ export default class Boot extends Phaser.Scene {
       });
 
       this.load.spritesheet('chicharo', 'enemies/chicharo.png', { 
-        frameWidth: 128, 
-        frameHeight: 128 
+        frameWidth: 130, 
+        frameHeight: 130 
       });
 
       this.load.spritesheet('tarro', 'enemies/tarro.png', { 
-        frameWidth: 128, 
-        frameHeight: 128 
+        frameWidth: 130, 
+        frameHeight: 130 
       });
 
       this.load.spritesheet('player-win', 'player/baileVictoria.png', { 

@@ -55,7 +55,7 @@ export default class FailState extends Phaser.Scene {
         duration: 20000, // Duration of the transition in milliseconds
         onComplete: () => {
             // Callback function after the transition is complete
-            sprite.clearTint(); // Clear the tint to ensure no residual tint is left
+            this.playerContainer.player.clearTint(); // Clear the tint to ensure no residual tint is left
         }
       });
 
