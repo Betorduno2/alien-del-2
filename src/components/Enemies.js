@@ -19,10 +19,11 @@ export default class Enemies extends Phaser.GameObjects.Group {
     createBullet() {
         const x = this.getRndX();
         const enemy = this.scene.physics.add.sprite(x, 0, 'chicharo', 0);
+        enemy.setScale(1.5);
         this.scene.physics.world.enable(enemy);
         this.add(enemy);
 
-        enemy.body.setSize(100, 100);
+        enemy.body.setSize(80, 80);
         
         enemy.name = 'chicharo';
         this.moveX(enemy, x);

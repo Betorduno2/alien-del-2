@@ -33,8 +33,9 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         // Agrega el jugador al contenedor
         this.player = this.scene.physics.add.sprite(0, 0, 'player_sp', 0)
         .setOrigin(.5,1);
+        this.player.setScale(1.5);
         this.player.setCollideWorldBounds(true);
-        this.player.body.setSize(100, 100);
+        this.player.body.setSize(80, 80);
         // this.player.body.setAllowGravity(false);
         this.player.name = 'player_sp';
         this.initializeAnimation();
@@ -88,9 +89,10 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
     initializeTimerDialog() {
         this.scene.time.addEvent({ 
-            delay: 5000, 
+            delay: 12000, 
             callback:() => {
                 this.setRndTextDialog();
+                this.fartSSound.play();
                 this.bubble.setAlpha(1);
                 this.textbox.setAlpha(1);
                 this.scene.time.addEvent({ 
@@ -111,15 +113,14 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         const rndId = Phaser.Math.Between(0, frases.length - 1);
         const frase = frases[rndId];
         this.textbox.setText(frase);
-        this.fartSSound.play();
     }
 
     moveLeft() {
-        this.body.setVelocityX(-300);
+        this.body.setVelocityX(-400);
     }
 
     moveRight() {
-        this.body.setVelocityX(300);
+        this.body.setVelocityX(500);
     }
 
     gasScape() {
@@ -134,6 +135,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         this.scene.physics.world.overlap(this.player, object, (player, enemy) => {
             enemy.destroy();
             this.scene.events.emit('damage');
+            this.fartSound.setVolume(3);
             this.fartSound.play();
         });
     }
@@ -147,6 +149,14 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
             this.isUpMobile = true;
         }
         
+    }
+
+    animationPause() {
+        this.player.stop();
+    }
+
+    animationResume() {
+        this.player.play();
     }
 
     update() {
