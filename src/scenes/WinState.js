@@ -7,7 +7,8 @@ export default class WinState extends Phaser.Scene {
 
   create() {
     this.background = new Background(this);
-
+    const mainScene = this.scene.get('Play');
+    mainScene.backgroundMusic.stop();
     this.add.text(
       this.game.config.width / 2,
       (this.game.config.height / 2) - 200,
@@ -36,9 +37,8 @@ export default class WinState extends Phaser.Scene {
     ).setOrigin(0.5);
 
     tryAgain.on('pointerdown', () => {
-      const mainScene = this.scene.get('Play');
       mainScene.randomSymbol();
-
+      mainScene.backgroundMusic.play();
       this.scene.start('Play');
       this.scene.start('GUI');
     });
