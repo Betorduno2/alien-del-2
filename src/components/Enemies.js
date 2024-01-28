@@ -3,7 +3,7 @@ export default class Enemies extends Phaser.GameObjects.Group {
     limitY;
     timer;
     delay = 800;
-    enemiesByLevel = 20;
+    enemiesByLevel = 30;
     constructor(scene) {
         super(scene, []);
         this.scene = scene;

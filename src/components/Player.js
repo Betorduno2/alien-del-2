@@ -166,6 +166,16 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
     checkPlayerByObject(object) {
         this.scene.physics.world.overlap(this.player, object, (player, enemy) => {
+            this.scene.tweens.add({
+                targets: [this.player],
+                alpha: 0,
+                repeat: 2,
+                duration: 100,
+                yoyo: true,
+                onComplete: () => {
+                    this.player.setAlpha(1);
+                }
+            });
             enemy.destroy();
             this.scene.events.emit('damage');
             this.fartSound.setVolume(3);
