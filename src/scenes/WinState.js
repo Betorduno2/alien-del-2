@@ -16,6 +16,9 @@ export default class WinState extends Phaser.Scene {
   create() {
     const rndId = Phaser.Math.Between(0, frases.length - 1);
     const frase = frases[rndId];
+    const Play = this.scene.get('Play');
+    const GUI = this.scene.get('GUI');
+
     this.background = new Background(this);
     this.add.text(
       this.game.config.width / 2,
@@ -34,7 +37,7 @@ export default class WinState extends Phaser.Scene {
     const tryAgain = this.add.text(
       this.game.config.width / 2,
       (this.game.config.height / 2) - 80,
-      'try again',
+      'Play again',
       {
         fontFamily: 'Alien',
         strokeThickness: 5,
@@ -45,14 +48,11 @@ export default class WinState extends Phaser.Scene {
     ).setOrigin(0.5);
 
     tryAgain.on('pointerdown', () => {
-      const Play = this.scene.get('Play');
-      const GUI = this.scene.get('GUI');
-
       if (Play && GUI) {
         Play.initializeGame();
         GUI.initializeGUI();
-        this.scene.start('Play');
-        this.scene.start('GUI');
+        this.scene.switch('Play');
+        this.scene.switch('GUI');
       }
     });
 
@@ -60,6 +60,7 @@ export default class WinState extends Phaser.Scene {
     this.game.config.height);
 
     this.playerContainer.animationPause();
+    this.playerContainer.player.body.setAllowGravity(false);
     this.playerContainer.player.setScale(2);
     this.playerContainer.animationWin();
   }

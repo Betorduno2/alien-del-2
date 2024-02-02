@@ -73,15 +73,11 @@ export default class Doors extends Phaser.GameObjects.Group {
         }
     }
     handleCorrectAnswer() {
-        console.log('correct');
-        console.log(this.scene);
-        this.scene.scene.start('WinState');
+        this.scene.scene.switch('WinState');
     }
 
     handleWrongAnswer() {
-        console.log('incorrect');
-        console.log(this.scene);
-        this.scene.scene.start('FailState');
+        this.scene.scene.switch('FailState');
     }
 
     moveToDoor(gameObject, targetObject, speed, onCompleteCallback) {

@@ -3,6 +3,7 @@ import Background from "../components/Background";
 import Enemies from "../components/Enemies";
 import PlayerContainer from "../components/Player";
 import SymbolContainer from "../components/Symbol";
+import { getSaveData } from "../utils";
 
 export default class Play extends Phaser.Scene {
     isDoorStep = false;
@@ -20,9 +21,9 @@ export default class Play extends Phaser.Scene {
       this.enemies = null;
       this.background = null;
       this.isDoorStep = false;
-      // Create the soundtrack
+      
       this.backgroundMusic = this.sound.add('soundtrack', { loop: true, volume: 0.3 });
-      // Play the soundtrack
+      
       this.backgroundMusic.play();
       this.playerContainer = new PlayerContainer(this, this.game.config.width / 2,
       this.game.config.height);
@@ -31,6 +32,7 @@ export default class Play extends Phaser.Scene {
       this.randomSymbol();
       this.background = new Background(this);
       this.eventsMobile();
+      this.initializeButtons();
 
       this.events.on('change-door-step', () => {
         if (!this.isDoorStep) {
@@ -39,6 +41,12 @@ export default class Play extends Phaser.Scene {
           this.isDoorStep = true;
         }
       });
+    }
+
+    initializeButtons() {
+      if (!getSaveData()) {
+        this.scene.launch('Tutorial');
+      }
     }
     
     update() {

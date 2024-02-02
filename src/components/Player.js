@@ -71,12 +71,24 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
         this.scene.anims.create({
             target: this.player,
+            key: 'shit-' + this.player.name,
+            frames: this.scene.anims.generateFrameNames('player-shit', {
+                start: 0,
+                end: 51
+            }),
+            frameRate: 15,
+            repeat: -1
+        });
+
+
+        this.scene.anims.create({
+            target: this.player,
             key: 'fail-' + this.player.name,
             frames: this.scene.anims.generateFrameNames('player-fail', {
                 start: 0,
-                end: 19
+                end: 31
             }),
-            frameRate: 15,
+            frameRate: 10,
             repeat: -1
         });
 
@@ -206,6 +218,10 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
     animationWin() {
         this.player.play('win-' + this.player.name);
+    }
+
+    animationShit() {
+        this.player.play('shit-' + this.player.name);
     }
 
     animationFail() {

@@ -36,9 +36,39 @@ export default class Boot extends Phaser.Scene {
         frameHeight: 130 
       });
 
-      this.load.spritesheet('player-fail', 'player/leaducenculito.png', { 
+      this.load.spritesheet('player-shit', 'player/leaducenculito-player.png', { 
         frameWidth: 130, 
         frameHeight: 130 
+      });
+
+      this.load.spritesheet('player-fail', 'player/leaducenculito-sheet.png', { 
+        frameWidth: 130, 
+        frameHeight: 130 
+      });
+
+      this.load.spritesheet('alien-shit', 'humor/alien-sheet.png', { 
+        frameWidth: 130, 
+        frameHeight: 130 
+      });
+
+      this.load.spritesheet('shit-happens', 'humor/shit-happens-sheet.png', { 
+        frameWidth: 130, 
+        frameHeight: 130 
+      });
+
+      this.load.spritesheet('postshit', 'humor/postshit-sheet.png', { 
+        frameWidth: 130, 
+        frameHeight: 130 
+      });
+   
+      this.load.spritesheet('spacing', 'buttons/spacing.png', { 
+        frameWidth: 96, 
+        frameHeight: 32 
+      });
+
+      this.load.spritesheet('arrows', 'buttons/arrows.png', { 
+        frameWidth: 32, 
+        frameHeight: 32 
       });
 
       this.load.image('door1', 'doors/door1.png');

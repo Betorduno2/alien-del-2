@@ -15,10 +15,14 @@ export default class GUI extends Phaser.Scene {
         this.holdShitBar;
         this.spaceKey;
         this.shitIcon;
+        this.soundButton = null;
+        this.fullscreenButton = null;
+        this.pauseButton = null;
 
-        this.initializeSoundButton();
-        this.initializeFullscreenButton();
-        this.initializePauseButton();
+        if (!this.soundButton) this.initializeSoundButton();
+        if (!this.fullscreenButton) this.initializeFullscreenButton();
+        if (!this.pauseButton) this.initializePauseButton();
+      
         this.holdShitBar = this.initializeLifeBar();
         this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
@@ -59,7 +63,7 @@ export default class GUI extends Phaser.Scene {
     }
 
     initializePauseButton() {
-        const pauseButton = this.add.image(
+        this.pauseButton = this.add.image(
             this.game.config.width - 235, 45, 
             'pause', 
             1
@@ -69,15 +73,15 @@ export default class GUI extends Phaser.Scene {
         
         const mainScene = this.scene.get('Play');
     
-        pauseButton.on('pointerdown', () => {
-            if (pauseButton.frame.name === 1) {
+        this.pauseButton.on('pointerdown', () => {
+            if (this.pauseButton.frame.name === 1) {
                 mainScene.sound.mute = true;
                 mainScene.scene.pause();
-                pauseButton.setFrame(0);
+                this.pauseButton.setFrame(0);
             } else {
                 mainScene.sound.mute = false;
                 mainScene.scene.resume();
-                pauseButton.setFrame(1);
+                this.pauseButton.setFrame(1);
             }
         });
     }
@@ -170,9 +174,9 @@ export default class GUI extends Phaser.Scene {
         }
         // Check if the value has reached a minimum threshold
         if (this.holdShit < 0) {
-            /*this.scene.remove('Play');
-            this.scene.remove('GUI');*/
-            this.scene.start('FailState');
+            const mainScene = this.scene.get('Play');
+            mainScene.scene.pause();
+            this.scene.switch('FailState');
         }
     }
 }

@@ -42,10 +42,11 @@ export default class Menu extends Phaser.Scene {
       this.playerContainer = new PlayerContainer(this, this.game.config.width / 2,
       this.game.config.height);
       
+      this.playerContainer.player.body.setAllowGravity(false);
       this.playerContainer.animationPause();
       this.playerContainer.player.setScale(4);
       
-      this.playerContainer.animationFail();
+      this.playerContainer.animationShit();
     }
 }
 

@@ -7,6 +7,7 @@ import GUI from './scenes/GUI.js';
 import CustomCanvas from './customCanvas.js';
 import WinState from './scenes/WinState.js';
 import FailState from './scenes/FailState.js';
+import Tutorial from './scenes/Tutorial.js';
 import Menu from './scenes/Menu.js';
 
 const DEFAULT_HEIGHT = 800;
@@ -37,6 +38,7 @@ const config = {
     Play,
     GUI,
     WinState,
+    Tutorial,
     FailState
   ],
   physics: {

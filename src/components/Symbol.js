@@ -31,11 +31,7 @@ export default class SymbolContainer extends Phaser.GameObjects.Container {
         this.fx2 = this.toiletBackgroud.preFX.addPixelate(-1);
         this.add(this.toiletBackgroud);
         this.add(this.symbol);
-
     }
-
-    
-    
 
     randomTexture() {
         const indexRandom = Phaser.Math.Between(0, this.symbolsTextures.length - 1);

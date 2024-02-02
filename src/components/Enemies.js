@@ -119,6 +119,10 @@ export default class Enemies extends Phaser.GameObjects.Group {
         child.play('idle-' + child.name);
     }
 
+    destroyAll() {
+        this.getChildren().forEach(enemy => enemy.destroy());
+    }
+
     update() {
         this.getChildren().forEach(enemy => {
             if (this.gameHeight && enemy.y >= this.gameHeight) {
