@@ -1,3 +1,5 @@
+import { goToFinalState } from "../utils";
+
 export default class Doors extends Phaser.GameObjects.Group {
     positions = [];
     activeSelection = false;
@@ -73,11 +75,11 @@ export default class Doors extends Phaser.GameObjects.Group {
         }
     }
     handleCorrectAnswer() {
-        this.scene.scene.switch('WinState');
+        goToFinalState(this.scene, false);
     }
 
     handleWrongAnswer() {
-        this.scene.scene.switch('FailState');
+        goToFinalState(this.scene);
     }
 
     moveToDoor(gameObject, targetObject, speed, onCompleteCallback) {

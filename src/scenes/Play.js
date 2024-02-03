@@ -21,6 +21,8 @@ export default class Play extends Phaser.Scene {
       this.enemies = null;
       this.background = null;
       this.isDoorStep = false;
+      this.physics.world.enable(this);
+      this.sound.mute = false;
       
       this.backgroundMusic = this.sound.add('soundtrack', { loop: true, volume: 0.3 });
       

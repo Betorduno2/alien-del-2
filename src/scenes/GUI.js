@@ -1,3 +1,5 @@
+import { goToFinalState } from "../utils";
+
 export default class GUI extends Phaser.Scene {
     constructor() {
       super('GUI');
@@ -18,6 +20,7 @@ export default class GUI extends Phaser.Scene {
         this.soundButton = null;
         this.fullscreenButton = null;
         this.pauseButton = null;
+        this.isFail = false;
 
         if (!this.soundButton) this.initializeSoundButton();
         if (!this.fullscreenButton) this.initializeFullscreenButton();
@@ -173,10 +176,9 @@ export default class GUI extends Phaser.Scene {
             }
         }
         // Check if the value has reached a minimum threshold
-        if (this.holdShit < 0) {
-            const mainScene = this.scene.get('Play');
-            mainScene.scene.pause();
-            this.scene.switch('FailState');
+        if (this.holdShit < 0 && !this.isFail) {
+            this.isFail = true;
+            goToFinalState(this);
         }
     }
 }

@@ -9,6 +9,20 @@ const isMobile = () => {
     return result;
 };
 
+const goToFinalState = (currentScene, isFail = true) => {
+    const mainScene = currentScene.scene.get('Play');
+    mainScene.sound.mute = true;
+    mainScene.scene.pause();
+
+    currentScene.scene.remove('Play');
+    currentScene.scene.remove('GUI');
+    if (isFail) {
+        currentScene.scene.launch('FailState');
+    } else {
+        currentScene.scene.launch('WinState');
+    }
+};
+
 const getSaveData = () => {
     let data = { isNew: true };
     if (localStorage.getItem("shit-eternal") == null) {
@@ -24,5 +38,6 @@ const getSaveData = () => {
 
 
 export {
+    goToFinalState,
     getSaveData
 }

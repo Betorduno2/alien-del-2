@@ -1,5 +1,7 @@
 import Background from "../components/Background";
 import PlayerContainer from "../components/Player";
+import Play from '../scenes/Play.js';
+import GUI from '../scenes/GUI.js';
 
 const frases = [
   'El pantalon\nnuevo',
@@ -28,9 +30,6 @@ export default class FailState extends Phaser.Scene {
       const rndId = Phaser.Math.Between(0, frases.length - 1);
       const frase = frases[rndId];
 
-      const Play = this.scene.get('Play');
-      const GUI = this.scene.get('GUI');
-
       this.add.text(
         this.game.config.width / 2,
         ( this.game.config.height / 2) - 200, 
@@ -49,26 +48,24 @@ export default class FailState extends Phaser.Scene {
        ( this.game.config.height / 2) - 80, 
         'try again',
         {
-            fontFamily: 'Alien',
-            strokeThickness: 5,
-            stroke: '#ffffff',
-            fontSize: 40,
-            color: '#000000'
+          fontFamily: 'Alien',
+          strokeThickness: 10,
+          stroke: '#000000',
+          fontSize: 40,
+          color: '#FFC90E'
         }
       ).setOrigin(0.5).setInteractive();
       
       tryAgain.on('pointerdown', () => {
-        if (Play && GUI) {
-          Play.initializeGame();
-          GUI.initializeGUI();
-          this.scene.switch('Play');
-          this.scene.switch('GUI');
-        }
+        this.scene.add('Play', Play);
+        this.scene.add('GUI', GUI);
+
+        this.scene.start('Play');
+        this.scene.start('GUI');
       });
 
       const idxRandom = Phaser.Math.Between(0, animationsKey.length - 1);
       this.initializeAnimations(animationsKey[idxRandom]);
-     
     }
   
     initializePlayer() {
