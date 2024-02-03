@@ -16,7 +16,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         this.scene = scene;
         this.initializePlayer();
         this.initializeBubble();
-        this.initializeTimerDialog();
+        this.initializeTimerDialog(true);
         this.cursors = this.scene.input.keyboard.createCursorKeys();
        
         // Agrega el contenedor al escenario
@@ -51,11 +51,31 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
             target: this.player,
             key: 'idle-' + this.player.name,
             frames: this.scene.anims.generateFrameNames(this.player.name, {
-                start: 0,
-                end: 20
+                start: 12,
+                end: 21
             }),
             frameRate: 15,
             repeat: -1
+        });
+
+        this.scene.anims.create({
+            target: this.player,
+            key: 'start-' + this.player.name,
+            frames: this.scene.anims.generateFrameNames(this.player.name, {
+                start: 0,
+                end: 11
+            }),
+            frameRate: 15
+        });
+
+        this.scene.anims.create({
+            target: this.player,
+            key: 'gas-' + this.player.name,
+            frames: this.scene.anims.generateFrameNames(this.player.name, {
+                start: 32,
+                end: 44
+            }),
+            frameRate: 10
         });
 
         this.scene.anims.create({
@@ -92,7 +112,14 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
             repeat: -1
         });
 
-        this.player.play('idle-' + this.player.name);
+        this.player.play('start-' + this.player.name);
+
+        this.player.on('animationcomplete', (animation) => {
+            if (animation.key === 'start-' + this.player.name
+            || animation.key === 'gas-' + this.player.name) {
+                this.player.play('idle-' + this.player.name);
+            }
+        });
     }
 
     initializeBubble() {
@@ -180,6 +207,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
     checkPlayerByObject(object) {
         this.scene.physics.world.overlap(this.player, object, (player, enemy) => {
+            this.player.play('gas-' + this.player.name);
             this.scene.tweens.add({
                 targets: [this.player],
                 alpha: 0,

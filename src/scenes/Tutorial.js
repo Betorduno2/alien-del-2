@@ -101,7 +101,7 @@ export default class Tutorial extends Phaser.Scene {
             targets: [playScene.symbolContainer, spaceKey, textSpace],
             scale: 1.5,
             ease: 'Linear',
-            duration: 1000,
+            duration: 900,
             yoyo: true,
             paused: true,
             repeat: 1,
@@ -125,7 +125,7 @@ export default class Tutorial extends Phaser.Scene {
           targets: [spaceKey, textSpace, GUIScene.holdShitBar, GUIScene.shitIcon],
           scale: 2,
           ease: 'Linear',
-          duration: 1000,
+          duration: 900,
           yoyo: true,
           paused: true,
           repeat: 1,
@@ -143,35 +143,40 @@ export default class Tutorial extends Phaser.Scene {
             symbolTween.play();
           }
         });
-        
-  
-        this.tweens.add({
-          targets: [rightKey, leftKey, playScene.playerContainer.player],
-          scale: 2,
-          ease: 'Linear',
-          duration: 1000,
-          yoyo: true,
-          repeat: 1,
-          onStart: () => {
-            rightKey.setAlpha(1);
-            leftKey.setAlpha(1);
 
-            playScene.scene.pause();
-            GUIScene.scene.pause();
-          },
-          onComplete: () => {
-            rightKey.setAlpha(0);
-            leftKey.setAlpha(0);
-            
-            playScene.scene.resume();
-            GUIScene.scene.resume();
-            this.time.addEvent({ 
-                delay: 3000, 
-                callback:() => {
-                    spaceTween.play();
-                }
+        this.time.addEvent({ 
+          delay: 800, 
+          callback:() => {
+            this.tweens.add({
+              targets: [rightKey, leftKey, playScene.playerContainer.player],
+              scale: 2,
+              ease: 'Linear',
+              duration: 1000,
+              yoyo: true,
+              repeat: 1,
+              onStart: () => {
+                rightKey.setAlpha(1);
+                leftKey.setAlpha(1);
+    
+                playScene.scene.pause();
+                GUIScene.scene.pause();
+              },
+              onComplete: () => {
+                rightKey.setAlpha(0);
+                leftKey.setAlpha(0);
+                
+                playScene.scene.resume();
+                GUIScene.scene.resume();
+                this.time.addEvent({ 
+                    delay: 2000, 
+                    callback:() => {
+                        spaceTween.play();
+                    }
+                });
+              }
             });
-          }
-        });
+          }, 
+          callbackScope: this
+      });
     }
 }
